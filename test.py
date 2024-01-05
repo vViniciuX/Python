@@ -1,4 +1,4 @@
 a = 10
-b = 0
+b = 5
 if a>=b:
   print("Hello world")
