@@ -26,7 +26,7 @@ def check_answer(answer, guess):
   
 def final(corrects_answers):
   print("-------------------------")
-  print("Hit Rate:", corrects_answers, "%")
+  print("Score Rate:", corrects_answers, "%")
   play_again = input("Would you like play again? (yes or no): ")
   if play_again.lower() == "yes" or play_again.lower() == 'y':
     new_quiz()
