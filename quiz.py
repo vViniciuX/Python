@@ -14,9 +14,12 @@ def new_quiz():
     corrects_answers += check_answer(questions.get(key), guess)
     
     question_num += 1
-  finish_game(corrects_answers)
+  print("-------------------------")
+  print("Score Rate:", math.floor((corrects_answers/len(questions))*100), "% (", corrects_answers, "/", len(questions), ")")
+  play_again = input("Would you like play again? (yes or no): ")
+  if play_again.lower() == "yes" or play_again.lower() == 'y':
+    new_quiz()
   
-
 def check_answer(answer, guess):
   if answer == guess.upper():
     print("Correct!!")
@@ -24,16 +27,15 @@ def check_answer(answer, guess):
   else:
     print("Wrong!!")
     return 0
-  
-  
-  
-def finish_game(corrects_answers):
-  print("-------------------------")
-  print("Score Rate:", math.floor((corrects_answers/len(questions))*100), "% (", corrects_answers, "/", len(questions), ")")
-  play_again = input("Would you like play again? (yes or no): ")
-  if play_again.lower() == "yes" or play_again.lower() == 'y':
-    new_quiz()
 
+
+def edit_mode():
+  print("----------- Quiz Game / Edit -------------")
+  question = input("Add question (+) / Remove question (-): ")
+  if question == '+':
+    print("Teste")
+  elif question == '-':
+    print("Teste")
 
 with open("questions.json") as questions:
   file_json = json.load(questions)
@@ -41,7 +43,10 @@ with open("questions.json") as questions:
   options = file_json["options"]
 
 
-print("-----------Quiz Game-------------")
-mode = input("What do you want? (P/Play or E/Edit) ")
-
-new_quiz()
+# Quiz game - Home
+print("----------- Quiz Game / Home -------------")
+mode = input("What do you want? (P/Play or E/Edit): ")
+if mode.lower() == 'e' or mode.lower() == 'edit':
+  edit_mode()
+elif mode.lower() == 'p' or mode.lower() == 'play':
+  new_quiz()
