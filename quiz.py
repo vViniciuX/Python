@@ -1,3 +1,5 @@
+import json
+import math
 
 def new_quiz():
   corrects_answers = 0
@@ -12,7 +14,7 @@ def new_quiz():
     corrects_answers += check_answer(questions.get(key), guess)
     
     question_num += 1
-  final((corrects_answers/len(questions))*100)
+  finish_game(corrects_answers)
   
 
 def check_answer(answer, guess):
@@ -24,23 +26,22 @@ def check_answer(answer, guess):
     return 0
   
   
-def final(corrects_answers):
+  
+def finish_game(corrects_answers):
   print("-------------------------")
-  print("Score Rate:", corrects_answers, "%")
+  print("Score Rate:", math.floor((corrects_answers/len(questions))*100), "% (", corrects_answers, "/", len(questions), ")")
   play_again = input("Would you like play again? (yes or no): ")
   if play_again.lower() == "yes" or play_again.lower() == 'y':
     new_quiz()
-    
-questions = {
-  "When was Python launched? ": "A",
-  "Who created Python?": "B",
-  "How much is 2+2": "D"
-}
 
-options = [
-  ["A. 1991", "B. 1992", "C. 1990", "D. 1985"],
-  ["A. Anders Hejlsberg", "B. Guido van Rossum", "C. Dennis Ritchie", "D. James Gosling"],
-  ["A. 1", "B. 3", "C. 2", "D. 4"]
-]
+
+with open("questions.json") as questions:
+  file_json = json.load(questions)
+  questions = file_json["questions"]
+  options = file_json["options"]
+
+
+print("-----------Quiz Game-------------")
+mode = input("What do you want? (P/Play or E/Edit) ")
 
 new_quiz()
