@@ -6,7 +6,7 @@ def new_quiz():
   question_num = 0
   guess = ''
   for key in questions:
-    print("-------------------------")
+    print("----------- Quiz Game / Game -------------")
     print(key)
     for option in options[question_num]:
       print(option)
@@ -14,7 +14,7 @@ def new_quiz():
     corrects_answers += check_answer(questions.get(key), guess)
     
     question_num += 1
-  print("-------------------------")
+  print("----------- Quiz Game / Results -------------")
   print("Score Rate:", math.floor((corrects_answers/len(questions))*100), "% (", corrects_answers, "/", len(questions), ")")
   play_again = input("Would you like play again? (yes or no): ")
   if play_again.lower() == "yes" or play_again.lower() == 'y':
