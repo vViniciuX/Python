@@ -2,12 +2,14 @@
   "questions": {
     "When was Python launched? ": "A",
     "Who created Python?": "B",
-    "How much is 2+2": "D"
+    "How much is 2+2": "D",
+    "Where was Microsoft founded?": "A"
   },
 
   "options": [
     ["A. 1991", "B. 1992", "C. 1990", "D. 1985"],
     ["A. Anders Hejlsberg", "B. Guido van Rossum", "C. Dennis Ritchie", "D. James Gosling"],
-    ["A. 1", "B. 3", "C. 2", "D. 4"]
+    ["A. 1", "B. 3", "C. 2", "D. 4"],
+    ["A. Albuquerque, New Mexico, USA", "B. Suwon, South Korea", "C. Los Altos, California, USA", "D. Costa Mesa, California, USA"]
   ]
 }
