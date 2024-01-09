@@ -4,7 +4,6 @@ import math
 def new_quiz():
   corrects_answers = 0
   question_num = 0
-  guess = ''
   for key in questions:
     print("----------- Quiz Game / Game -------------")
     print(key)
