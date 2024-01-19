@@ -1,3 +1,5 @@
+import math
+
 # Send operation for calcule
 print("--------- Advanced Calculation ---------\n")
 operation = input("----- Write the operation (Ex: 10+10, 20/20...): -----\n")
@@ -18,16 +20,20 @@ def WhichOperator(number1, operator, number2):
       return Exponentiation(number1, number2)
     case 'v':
       return Root_Extraction(number1, number2)
+    case 'l':
+      return Logarithm(number1, number2)
 
 # Calculation Functions
-def Exponentiation(number, exponent):
-  x = 1
+def Exponentiation(base, exponent):
+  resultExp = 1
+  
   for _ in range(exponent):
-    x = x * number
-  return x
+    resultExp = resultExp * base
+    
+  return resultExp
 
 def Root_Extraction(index, rooting):
-  Base = 1
+  decimal = 1
   isRoot = 1
   resultRoot = 1
   
@@ -36,16 +42,20 @@ def Root_Extraction(index, rooting):
       isRoot *= resultRoot
       
     if isRoot > rooting:
-      resultRoot -= Base
-      Base *= 0.1
+      resultRoot -= decimal
+      decimal *= 0.1
     elif index == 0:
       return 'Undefined'
     elif isRoot < rooting:
-      resultRoot += Base
+      resultRoot += decimal
     elif isRoot == rooting:
       return resultRoot
     isRoot = 1
+    
   return resultRoot
+
+def Logarithm(base, logarithm):
+  return math.log(logarithm)
 
 # Calculation of expression
 current_var = 0
@@ -73,7 +83,7 @@ try:
 except: 
   print ("---- Error: {0}\n".format(numbers))
 else:
-  print("---- Conclusion: {0} = {1}\n".format(operation, result))
+  print("---- Conclusion: {0}{1}{2} → {3}\n".format(numbers[0], operator, numbers[1], result))
 finally:
   print ("----- End -----")
   
