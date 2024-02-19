@@ -1,12 +1,57 @@
 import math
+from mathcalc import *
+
+numbers = []
 
 # Send operation for calcule
-print("--------- Advanced Calculation ---------\n")
-operation = input("----- Write the operation (Ex: 10+10, 20/20...): -----\n")
+print("------- Advanced Calculation -------\n")
+problem_input = input("Write the operation (Ex: 10+10, 20/20...): ")
 print("")
 
+# Calculation of expression
+def Interpretation():
+  new_char = ""
+  new_op = ""
+  for char in problem_input+' ':
+    try:
+      int(char)
+      new_char += char
+      if new_op != '':
+        numbers.append(new_op)
+        new_op = ''
+    except:
+      try:
+        numbers.append(int(new_char))
+        new_char = ''
+      except:
+        pass
+      new_op += char
+Interpretation()
+
+
+def ProblemSolving():
+  OperationsList = ['+','-','*','/','**','v', 'log', '(', ')']
+  OperationsList.reverse()
+  
+  for i in OperationsList:
+    try:
+        while numbers.count(i) > 0:
+          PosNumber = numbers.index(i)
+          numbers[PosNumber-1] = WhichOperation(numbers[PosNumber], numbers[PosNumber-1], numbers[PosNumber+1])
+          if len(numbers) > 2:
+            del numbers[PosNumber]
+          if len(numbers) > 1:
+            del numbers[PosNumber]
+    except:
+      pass
+  if len(numbers) == 1:
+    return numbers[0]
+  else:
+    print(numbers)
+    return 'Error'
+
 # Function WhichOperation for calcule result
-def WhichOperator(number1, operator, number2):
+def WhichOperation(operator, number1, number2):
   match operator:
     case '+':
       return number1 + number2
@@ -16,75 +61,45 @@ def WhichOperator(number1, operator, number2):
       return number1 * number2
     case '/':
       return number1 / number2
-    case '^':
-      return Exponentiation(number1, number2)
+    case '**':
+      return number1 ** number2
     case 'v':
-      return Root_Extraction(number1, number2)
-    case 'l':
-      return Logarithm(number1, number2)
+      return RootExtraction(number2, number1)
+    case 'log':
+      return math.log10(number2)
 
 # Calculation Functions
-def Exponentiation(base, exponent):
-  resultExp = 1
-  
-  for _ in range(exponent):
-    resultExp = resultExp * base
-    
-  return resultExp
-
-def Root_Extraction(index, rooting):
-  decimal = 1
+def IsRoot(index, resultRoot):
   isRoot = 1
-  resultRoot = 1
+  for _ in range(index):
+    isRoot *= resultRoot
+  return isRoot
+def RootExtraction(rooting, index=2):
+  decimal = 1
+  resultRoot = rooting
   
-  for _ in range(rooting*24):
-    for _ in range(index):
-      isRoot *= resultRoot
-      
-    if isRoot > rooting:
+  if index <= 0:
+      return 'Undefined'
+  
+  while IsRoot(index, resultRoot) > rooting:
+    resultRoot /= 1.002
+
+  for _ in range(len(str(math.floor(resultRoot)))*70):
+    if IsRoot(index, resultRoot) > rooting:
       resultRoot -= decimal
       decimal *= 0.1
-    elif index == 0:
-      return 'Undefined'
-    elif isRoot < rooting:
+    if IsRoot(index, resultRoot) < rooting:
       resultRoot += decimal
-    elif isRoot == rooting:
+    if IsRoot(index, resultRoot) == rooting:
       return resultRoot
-    isRoot = 1
-    
+  print("Done")
   return resultRoot
-
-def Logarithm(base, logarithm):
-  return math.log(logarithm)
-
-# Calculation of expression
-current_var = 0
-base = 0
-numbers = []
-operator = ''
-
-for var in operation:
-  try:
-    if int(var) < 10 and int(var) > -1:
-      base += 1
-      if base > 1:
-        current_var = current_var * 10
-      current_var += int(var)
-  except:
-    numbers.append(int(current_var))
-    operator = var
-    base = 0
-    current_var = 0
-numbers.append(int(current_var))
 
 # Send result
 try:
-  result = WhichOperator(numbers[0], operator, numbers[1])
+  print(f"-- Result: {problem_input} → {ProblemSolving()}\n")
 except: 
-  print ("---- Error: {0}\n".format(numbers))
-else:
-  print("---- Conclusion: {0}{1}{2} → {3}\n".format(numbers[0], operator, numbers[1], result))
-finally:
-  print ("----- End -----")
+  print ("-- Error\n")
+print ("-------------- End -----------------")
   
   
