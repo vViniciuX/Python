@@ -42,13 +42,14 @@ def ProblemSolving():
             del numbers[PosNumber]
           if len(numbers) > 1:
             del numbers[PosNumber]
-    except:
-      pass
+    except ZeroDivisionError: 
+      Error = 'Zero Division Error'
+    except Exception as E:
+      Error = E
   if len(numbers) == 1:
     return numbers[0]
   else:
-    print(numbers)
-    return 'Error'
+    return Error
 
 # Function WhichOperation for calcule result
 def WhichOperation(operator, number1, number2):
@@ -69,14 +70,15 @@ def WhichOperation(operator, number1, number2):
       return math.log10(number2)
 
 # Calculation Functions
-def IsRoot(index, resultRoot):
-  isRoot = 1
-  for _ in range(index):
-    isRoot *= resultRoot
-  return isRoot
 def RootExtraction(rooting, index=2):
   decimal = 1
   resultRoot = rooting
+  
+  def IsRoot(index, resultRoot):
+    isRoot = 1
+    for _ in range(index):
+      isRoot *= resultRoot
+    return isRoot
   
   if index <= 0:
       return 'Undefined'
@@ -98,8 +100,7 @@ def RootExtraction(rooting, index=2):
 # Send result
 try:
   print(f"-- Result: {problem_input} → {ProblemSolving()}\n")
-except: 
-  print ("-- Error\n")
-print ("-------------- End -----------------")
+except:
+  pass
   
   
