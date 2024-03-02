@@ -2,14 +2,16 @@ import math
 from mathcalc import *
 
 numbers = []
-
 # Send operation for calcule
-print("------- Advanced Calculation -------\n")
-problem_input = input("Write the operation (Ex: 10+10, 20/20...): ")
-print("")
-
+def Initiate():
+  print(f"{' Advanced Calculation ':=^60}\n")
+  problem_input = input("Write the operation (Ex: 10+10, 20/20...): ")
+  print("")
+  Interpretation(problem_input)
+  print(f"{'Result':>10}: {problem_input} → {ProblemSolving()}\n")
+  
 # Calculation of expression
-def Interpretation():
+def Interpretation(problem_input):
   new_char = ""
   new_op = ""
   for char in problem_input+' ':
@@ -26,8 +28,6 @@ def Interpretation():
       except:
         pass
       new_op += char
-Interpretation()
-
 
 def ProblemSolving():
   OperationsList = ['+','-','*','/','**','v', 'log', '(', ')']
@@ -43,13 +43,13 @@ def ProblemSolving():
           if len(numbers) > 1:
             del numbers[PosNumber]
     except ZeroDivisionError: 
-      Error = 'Zero Division Error'
+      return 'ZeroDivisionError'
     except Exception as E:
-      Error = E
+      return E
   if len(numbers) == 1:
     return numbers[0]
   else:
-    return Error
+    return 'Operation Error'
 
 # Function WhichOperation for calcule result
 def WhichOperation(operator, number1, number2):
@@ -65,36 +65,11 @@ def WhichOperation(operator, number1, number2):
     case '**':
       return number1 ** number2
     case 'v':
-      return RootExtraction(number2, number1)
+      return number2**(1/number1)
     case 'log':
       return math.log10(number2)
 
-# Calculation Functions
-def RootExtraction(rooting, index=2):
-  decimal = 1
-  resultRoot = rooting
-  
-  if index <= 0:
-      return 'Undefined'
-  
-  while resultRoot ** index > rooting:
-    resultRoot /= 1.002
-
-  for _ in range(len(str(math.floor(resultRoot)))*70):
-    if resultRoot ** index > rooting:
-      resultRoot -= decimal
-      decimal *= 0.1
-    if resultRoot ** index < rooting:
-      resultRoot += decimal
-    if resultRoot ** index == rooting:
-      return resultRoot
-  print("Done")
-  return resultRoot
-
 # Send result
-try:
-  print(f"-- Result: {problem_input} → {ProblemSolving()}\n")
-except:
-  pass
+Initiate()
   
   
