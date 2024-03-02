@@ -74,25 +74,19 @@ def RootExtraction(rooting, index=2):
   decimal = 1
   resultRoot = rooting
   
-  def IsRoot(index, resultRoot):
-    isRoot = 1
-    for _ in range(index):
-      isRoot *= resultRoot
-    return isRoot
-  
   if index <= 0:
       return 'Undefined'
   
-  while IsRoot(index, resultRoot) > rooting:
+  while resultRoot ** index > rooting:
     resultRoot /= 1.002
 
   for _ in range(len(str(math.floor(resultRoot)))*70):
-    if IsRoot(index, resultRoot) > rooting:
+    if resultRoot ** index > rooting:
       resultRoot -= decimal
       decimal *= 0.1
-    if IsRoot(index, resultRoot) < rooting:
+    if resultRoot ** index < rooting:
       resultRoot += decimal
-    if IsRoot(index, resultRoot) == rooting:
+    if resultRoot ** index == rooting:
       return resultRoot
   print("Done")
   return resultRoot
